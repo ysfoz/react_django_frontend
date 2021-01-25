@@ -13,14 +13,17 @@ import InputBase from '@material-ui/core/InputBase';
 import Avatar from '@material-ui/core/Avatar';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import logo from '../assets/dj.png'
-import logo2 from '../assets/react.png'
+// import logo2 from '../assets/react.png'
 
 
 
 const useStyles = makeStyles((theme) => ({
    font:{
-    fontSize:10,
+    fontSize:12,
     marginLeft:2,
+    marginLeft: theme.spacing(-1),
+   },
+   profileButton:{
     marginLeft: theme.spacing(-1),
    },
    small: {
@@ -29,9 +32,10 @@ const useStyles = makeStyles((theme) => ({
   },
   root: {
     flexGrow: 1,
+    
   },
   menuButton: {
-    marginRight: theme.spacing(),
+    marginRight: theme.spacing(1),
   },
   title: {
     flexGrow: 1,
@@ -78,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function NavBar() {
+export default function Navbar() {
 const classes = useStyles();
 const [anchorEl, setAnchorEl] = React.useState(null);
 const handleMenu = (event) => {
@@ -98,9 +102,9 @@ const handleMenu = (event) => {
         <Toolbar>
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
             
-          {/* <img src = {logo2} style={{width:50, height:50}}/> */}
+         
           <Avatar alt="Remy Sharp" src={logo} className={classes.small} />
-          {/* <img src = {logo} style={{width:50, height:50}}/> */}
+          
           </IconButton>
           <Typography variant="h6" className={classes.title}>
           Blog
@@ -129,7 +133,7 @@ const handleMenu = (event) => {
                 onClick={handleMenu}
                 color="inherit"
               >
-                <AccountCircle />
+                <AccountCircle className={classes.profileButton}/>
               </IconButton>
               <Menu
                 id="menu-appbar"
