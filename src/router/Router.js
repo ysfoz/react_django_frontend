@@ -5,6 +5,7 @@ import Register from '../pages/Register'
 import Login from '../pages/Login'
 import ProfilePage from '../pages/ProfilePage'
 import PostPage from '../pages/PostPage'
+import UpdatePage from '../pages/UpdatePage'
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
@@ -19,6 +20,7 @@ const AppRouter = () => {
         <Route path="/login" component={Login} />
         <Route path="/profile" component={ProfilePage} />
         <Route path="/post" component={PostPage} />
+        <Route path="/update" component={UpdatePage} />
       </Switch>
     </Router>
   );

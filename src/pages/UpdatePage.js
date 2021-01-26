@@ -1,5 +1,4 @@
-
-import React from 'react';
+import React from 'react'
 import {
     withStyles,
   } from "@material-ui/core/styles";
@@ -43,11 +42,10 @@ import CKEditor from 'ckeditor4-react';
   
   const useStyles = makeStyles((theme) => ({
     root: {
-      
       width:'100%',
       overflow: 'hidden'
     },
-   
+  
     paper: {
       margin: theme.spacing(8, 4),
       display: "flex",
@@ -70,6 +68,7 @@ import CKEditor from 'ckeditor4-react';
       alignItems: "center",
       width : '100%',
     },
+  
     // form: {
     //   marginTop: "3rem",
     //   alignItems: "center",
@@ -84,15 +83,7 @@ import CKEditor from 'ckeditor4-react';
       margin: 2,
       marginTop: 13,
     },
-    address: {
-      marginTop: 13,
-      margin: 2,
-      width: "80.5%",
-    },
-    bio: {
-      margin: 2,
-      marginTop: 13,
-    },
+   
     button: {
       marginTop: 13,
       width: "80.7%",
@@ -124,7 +115,7 @@ import CKEditor from 'ckeditor4-react';
       },
   }));
   
-  const PostPage = () => {
+  const UpdatePage = () => {
     const classes = useStyles();
     const [state, setState] = React.useState({
     status: '',
@@ -140,6 +131,8 @@ import CKEditor from 'ckeditor4-react';
   };
     
     const matches = useMediaQuery("(min-width:750px)");
+   
+    
   
     return (
       <Grid container component="main" className={classes.root}>
@@ -149,7 +142,7 @@ import CKEditor from 'ckeditor4-react';
               <LocalMallIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Create New Post
+              Update Blog
             </Typography>
             <form className={matches ? classes.form : classes.form2}>
               <CssTextField
@@ -191,7 +184,7 @@ import CKEditor from 'ckeditor4-react';
                 label="Content"
               />
               }
-           
+               
               <FormControl variant="outlined" className={classes.formControl}>
                 <InputLabel htmlFor="outlined-age-native-simple">Status</InputLabel>
                 <Select
@@ -221,12 +214,13 @@ import CKEditor from 'ckeditor4-react';
                 type="submit"
                 className={classes.button}
               >
-                Create
+                Update
               </Button>
             </form>
           </div>
+         
         </Grid>
       </Grid>
     );
   };
-  export default PostPage;
+  export default UpdatePage;
