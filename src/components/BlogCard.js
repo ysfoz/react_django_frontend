@@ -40,35 +40,34 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function BlogCard() {
+export default function BlogCard({title,author,commentCount,id,image,likeCount,publishDate,content,updateDate,viewCount}) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-
+  // console.log(props.data)
   return (
     <Card className={classes.root}>
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
-            R
+            {author}
           </Avatar>
         }
        
-        title="Shrimp and Chorizo Paella"
-        subheader="September 14, 2016"
+        title={title}
+        subheader={publishDate}
       />
       <CardMedia
         className={classes.media}
-        image= {'https://reactjs.org/logo-og.png'}
+        image= {image}
         title="Paella dish"
       />
-      <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
-          This impressive paella is a perfect party dish and a fun meal to cook together with your
-          guests. Add 1 cup of frozen peas along with the mussels, if you like.
+      <CardContent >
+        <Typography variant="body2" color="textSecondary" component="p" >
+        {content}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>

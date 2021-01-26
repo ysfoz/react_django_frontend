@@ -19,11 +19,6 @@ import Collapse from '@material-ui/core/Collapse';
 // import MoreVertIcon from '@material-ui/icons/MoreVert';
 // import foto from "../assets/react.png";
 import TextField from '@material-ui/core/TextField';
-import {
-
-    withStyles,
-    
-  } from '@material-ui/core/styles';
   import Button from '@material-ui/core/Button';
   import SendIcon from '@material-ui/icons/Send';
   
