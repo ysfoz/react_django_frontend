@@ -13,14 +13,14 @@ const CardList = ({ postData }) => {
             key={i}
             title={post.title}
             author = {post.author}
-            commentCount = {post.commentCount}
+            commentCount = {post.comment_count}
             id = {post.id}
             image = {post.image}
-            likeCount = {post.likeCount}
+            likeCount = {post.like_count}
             publishDate = {post.publishDate}
             content = {post.content}
-            updateDate = {post.updateDate}
-            viewCount = {post.viewCount}
+            updateDate = {post.update_date}
+            viewCount = {post.view_count}
 
             
             />

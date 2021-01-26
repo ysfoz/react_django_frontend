@@ -14,10 +14,13 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
-import foto from '../assets/dj.png'
+import Badge from '@material-ui/core/Badge';
+import Collapse from '@material-ui/core/Collapse';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    minHeight:'100%',
     maxWidth: 345,
     marginTop:50
   },
@@ -40,6 +43,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+
 export default function BlogCard({title,author,commentCount,id,image,likeCount,publishDate,content,updateDate,viewCount}) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
@@ -47,7 +52,8 @@ export default function BlogCard({title,author,commentCount,id,image,likeCount,p
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-  // console.log(props.data)
+
+console.log(likeCount)
   return (
     <Card className={classes.root}>
       <CardHeader
@@ -66,19 +72,29 @@ export default function BlogCard({title,author,commentCount,id,image,likeCount,p
         title="Paella dish"
       />
       <CardContent >
-        <Typography variant="body2" color="textSecondary" component="p" >
-        {content}
+        <Typography variant="body2" color="textSecondary" component="p"  >
+        {/* style={{textOverflow:'ellipsis',overflow: 'hidden',whiteSpace: 'nowrap'}} */}
+        {content.lenght < 110 ? content : content.substring(0,111) + '. . .'}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
+        <Badge badgeContent={likeCount} color="secondary"> 
           <FavoriteIcon />
+          </Badge>
         </IconButton>
         <IconButton aria-label="Visibility">
+
+          
+        <Badge badgeContent={viewCount} color="secondary"> 
           <VisibilityIcon />
+        </Badge>
         </IconButton>
         <IconButton aria-label="Comment">
+          
+        <Badge badgeContent={commentCount} color="secondary"> 
           <ChatBubbleOutlineIcon />
+          </Badge>
         </IconButton>
         <IconButton
           className={clsx(classes.expand, {
@@ -91,6 +107,14 @@ export default function BlogCard({title,author,commentCount,id,image,likeCount,p
           <ExpandMoreIcon />
         </IconButton>
       </CardActions>
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <CardContent>
+          <Typography paragraph>
+            {content.lenght < 110 ? null : '➡️   . . .    ' + content.substring(111,)}
+            </Typography>
+          
+        </CardContent>
+      </Collapse>
      
     </Card>
   );
