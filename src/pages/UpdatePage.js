@@ -45,7 +45,6 @@ import CKEditor from 'ckeditor4-react';
       width:'100%',
       overflow: 'hidden'
     },
-  
     paper: {
       margin: theme.spacing(8, 4),
       display: "flex",
