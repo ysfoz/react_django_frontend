@@ -15,7 +15,7 @@ const AppRouter = () => {
       <Navbar />
       <Switch>
         <Route path="/" component={HomePage} exact />
-        <Route path="/detail" component={DetailPage} />
+        <Route path="/:slug/detail" component={DetailPage} />
         <Route path="/register" component={Register} />
         <Route path="/login" component={Login} />
         <Route path="/profile" component={ProfilePage} />

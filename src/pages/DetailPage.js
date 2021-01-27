@@ -1,11 +1,14 @@
-import React from "react";
+import React,{ useEffect, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from '@material-ui/core/styles';
 import CardDetail from "../components/CardDetail";
+import { useParams } from "react-router-dom";
+import axios from "axios"
 
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    overflow:'hidden',
     flexGrow: 1,
     marginBottom:150
   },
@@ -17,6 +20,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const DetailPage = () => {
+  const { slug } = useParams();
+  const [postDetail, setPostDetail] = useState()
+  const fetchData = async () => {
+    const res = await axios.get(`https://blog-backend-ysf.herokuapp.com/${slug}/detail`)
+    setPostDetail(res?.data)
+  }
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+
   const classes = useStyles();
 
   return (
@@ -24,7 +38,7 @@ const DetailPage = () => {
       <Grid container spacing={3}>
         <Grid item xs={12}>
      
-          <CardDetail />
+          <CardDetail post={ postDetail }/>
           
         </Grid>
       </Grid>

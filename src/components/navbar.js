@@ -13,7 +13,7 @@ import InputBase from '@material-ui/core/InputBase';
 import Avatar from '@material-ui/core/Avatar';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import logo from '../assets/dj.png'
-// import logo2 from '../assets/react.png'
+import Link from '@material-ui/core/Link';
 
 
 
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
    font:{
     fontSize:12,
     marginLeft:2,
-    marginLeft: theme.spacing(-1),
+    marginLeft: theme.spacing(-2),
    },
    profileButton:{
     marginLeft: theme.spacing(-1),
@@ -32,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
   root: {
     flexGrow: 1,
+    overflow:'hidden',
     
   },
   menuButton: {
@@ -100,12 +101,14 @@ const handleMenu = (event) => {
    
       <AppBar position="static">
         <Toolbar>
+          <Link href="/">
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
             
          
           <Avatar alt="Remy Sharp" src={logo} className={classes.small} />
           
           </IconButton>
+          </Link>
           <Typography variant="h6" className={classes.title}>
           Blog
           </Typography>
@@ -124,8 +127,13 @@ const handleMenu = (event) => {
             />
           </div>
 
-          <Button color="inherit" className={matches ? null :classes.font}>Login</Button>
+          <Link href="/login" color="inherit" style={{textDecoration:'none'}}>
+          <Button color="inherit" className={matches ? null :classes.font}> Login</Button>
+          </Link>
+          <Link href="/register" color="inherit" style={{textDecoration:'none'}}>
           <Button color="inherit" className={matches ? null :classes.font}>Register</Button>
+          </Link>
+
           <IconButton
                 aria-label="account of current user"
                 aria-controls="menu-appbar"
@@ -150,7 +158,9 @@ const handleMenu = (event) => {
                 open={open}
                 onClose={handleClose}
               >
+                <Link href='/profile'>
                 <MenuItem onClick={handleClose}>Profile</MenuItem>
+                </Link>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
               </Menu>
         </Toolbar>

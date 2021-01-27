@@ -17,6 +17,7 @@ import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import Badge from '@material-ui/core/Badge';
 import Collapse from '@material-ui/core/Collapse';
 import moment from 'moment';
+import Link from '@material-ui/core/Link';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -49,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function BlogCard({title,author,commentCount,id,image,likeCount,publishDate,content,updateDate,viewCount}) {
+export default function BlogCard({title,slug,author,commentCount,id,image,likeCount,publishDate,content,updateDate,viewCount}) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
@@ -60,6 +61,7 @@ export default function BlogCard({title,author,commentCount,id,image,likeCount,p
 
   return (
     <Card className={classes.root}>
+      <Link color='inherit' style={{textDecoration:'none'}} href={`/${slug}/detail/`} >
       <CardHeader className={classes.header}
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
@@ -70,15 +72,17 @@ export default function BlogCard({title,author,commentCount,id,image,likeCount,p
         title={title}
         subheader={moment(publishDate).format('LL')}
       />
+      
       <CardMedia
         className={classes.media}
         image= {image}
         title="Paella dish"
       />
+      </Link>
       <CardContent >
         <Typography variant="body2" color="textSecondary" component="p" style={{height:75,paddingTop:2}} >
         {/* style={{textOverflow:'ellipsis',overflow: 'hidden',whiteSpace: 'nowrap'}} */}
-        {content.lenght < 110 ? content : content.substring(0,111) + '. . .'}
+        {content.substring(0,111) + '. . .'}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
@@ -115,7 +119,7 @@ export default function BlogCard({title,author,commentCount,id,image,likeCount,p
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Typography paragraph>
-            {content.lenght < 110 ? null : '➡️   . . .    ' + content.substring(111,)}
+            {content.length < 110 ? "No more Content" : '➡️   . . .    ' + content.substring(111,)}
             </Typography>
           
         </CardContent>
