@@ -16,6 +16,7 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import Badge from '@material-ui/core/Badge';
 import Collapse from '@material-ui/core/Collapse';
+import moment from 'moment';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -23,6 +24,9 @@ const useStyles = makeStyles((theme) => ({
     minHeight:'100%',
     maxWidth: 345,
     marginTop:50
+  },
+  header: {
+    textOverflow:'ellipsis',overflow: 'hidden',whiteSpace: 'nowrap'
   },
   media: {
     height: 0,
@@ -53,18 +57,18 @@ export default function BlogCard({title,author,commentCount,id,image,likeCount,p
     setExpanded(!expanded);
   };
 
-console.log(likeCount)
+
   return (
     <Card className={classes.root}>
-      <CardHeader
+      <CardHeader className={classes.header}
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
-            {author}
+            {author[0]}
           </Avatar>
         }
        
         title={title}
-        subheader={publishDate}
+        subheader={moment(publishDate).format('LL')}
       />
       <CardMedia
         className={classes.media}
@@ -72,7 +76,7 @@ console.log(likeCount)
         title="Paella dish"
       />
       <CardContent >
-        <Typography variant="body2" color="textSecondary" component="p"  >
+        <Typography variant="body2" color="textSecondary" component="p" style={{height:75,paddingTop:2}} >
         {/* style={{textOverflow:'ellipsis',overflow: 'hidden',whiteSpace: 'nowrap'}} */}
         {content.lenght < 110 ? content : content.substring(0,111) + '. . .'}
         </Typography>
@@ -96,6 +100,7 @@ console.log(likeCount)
           <ChatBubbleOutlineIcon />
           </Badge>
         </IconButton>
+
         <IconButton
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded,

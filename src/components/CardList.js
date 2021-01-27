@@ -1,7 +1,9 @@
 import Grid from "@material-ui/core/Grid";
 import BlogCard from "../components/BlogCard";
 
+
 const CardList = ({ postData }) => {
+ 
   console.log("list", postData);
   return (
     <>
@@ -17,7 +19,7 @@ const CardList = ({ postData }) => {
             id = {post.id}
             image = {post.image}
             likeCount = {post.like_count}
-            publishDate = {post.publishDate}
+            publishDate = {post.publish_date}
             content = {post.content}
             updateDate = {post.update_date}
             viewCount = {post.view_count}
