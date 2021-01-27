@@ -49,6 +49,23 @@ const useStyles = makeStyles((theme) => ({
 export default function SignIn() {
   const classes = useStyles();
 
+    const [state, setState] = React.useState({
+    username: '',
+    email: '',
+    password:''
+  });
+
+   const handleChange = (event) => {
+      const name = event.target.name;
+      setState({
+         ...state,
+         [name]: event.target.value,
+      });
+  };
+  const handleSubmit =() => {
+
+  }
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -60,6 +77,18 @@ export default function SignIn() {
           Sign in
         </Typography>
         <form className={classes.form} noValidate>
+        <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="username"
+            label="Username"
+            name="username"
+            autoComplete="username"
+            autoFocus
+            onChange={handleChange}
+          />
           <TextField
             variant="outlined"
             margin="normal"
@@ -70,6 +99,7 @@ export default function SignIn() {
             name="email"
             autoComplete="email"
             autoFocus
+            onChange={handleChange}
           />
           <TextField
             variant="outlined"
@@ -81,6 +111,7 @@ export default function SignIn() {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange={handleChange}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -92,6 +123,7 @@ export default function SignIn() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={handleSubmit}
           >
             Sign In
           </Button>
