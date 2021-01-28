@@ -163,7 +163,8 @@ export default function NavBar() {
          {
            localStorage.getItem("Token") ?
              <>
-             <Typography>{localStorage.getItem('currentUser')}</Typography>
+             <Typography>{currentUser}</Typography> 
+             {/* {localStorage.getItem('currentUser')} */}
                <IconButton
                  aria-label="account of current user"
                  aria-controls="menu-appbar"
