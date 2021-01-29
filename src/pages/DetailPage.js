@@ -22,6 +22,8 @@ const useStyles = makeStyles((theme) => ({
 
 const DetailPage = () => {
   const { slug } = useParams();
+  const classes = useStyles();
+
   const [postDetail, setPostDetail] = useState()
   const fetchData = async () => {
     const res = await axios.get(`https://blog-backend-ysf.herokuapp.com/${slug}/detail`)
@@ -31,13 +33,15 @@ const DetailPage = () => {
     fetchData()
   }, [])
 
-
-  const classes = useStyles();
+//  const deletePost = () =>{
+//       axios.delete(`https://blog-backend-ysf.herokuapp.com/${slug}/update`)
+//   }
+  
 
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
-      <MenuComponent/>
+        {localStorage.getItem('Token') ? <MenuComponent slug = { slug }/> : null}
         <Grid item xs={12}>
           <CardDetail post={ postDetail }/>
         </Grid>
