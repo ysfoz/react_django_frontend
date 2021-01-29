@@ -1,5 +1,5 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -10,6 +10,10 @@ import EditIcon from '@material-ui/icons/Edit';
 import Link from '@material-ui/core/Link';
 import axios from 'axios';
 import { useParams } from "react-router-dom";
+import Modal from '@material-ui/core/Modal';
+
+
+import {useHistory} from "react-router-dom";
 
 
 const StyledMenu = withStyles({
@@ -43,9 +47,40 @@ const StyledMenuItem = withStyles((theme) => ({
   },
 }))(MenuItem);
 
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    position: 'absolute',
+    width: 400,
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
+}));
+
+function rand() {
+  return Math.round(Math.random() * 20) - 10;
+}
+
+function getModalStyle() {
+  const top = 50 + rand();
+  const left = 50 + rand();
+
+  return {
+    top: `${top}%`,
+    left: `${left}%`,
+    transform: `translate(-${top}%, -${left}%)`,
+  };
+}
+
 export default function CustomizedMenus({slug}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  
+  const [open, setOpen] = React.useState(false);
+  const classes = useStyles();
+  const history =useHistory()
+  // getModalStyle is not a pure function, we roll the style only on the first render
+  const [modalStyle] = React.useState(getModalStyle);
+//   const { slug } = useParams();
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -54,7 +89,50 @@ export default function CustomizedMenus({slug}) {
     setAnchorEl(null);
   };
 
- 
+  const handleOpenModal = () => {
+    setOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpen(false);
+  };
+
+  const onDelete = async() =>{
+    const Token = localStorage.getItem("Token");
+    const res= await axios.delete(`https://blog-backend-ysf.herokuapp.com/${slug}/update`, {
+      headers:{
+        "Authorization": `Token ${Token}`,
+      }
+    })
+    console.log(res)
+    history.push("/")
+
+  }
+
+  const body = (
+    <div style={modalStyle} className={classes.paper}>
+      <h2 id="simple-modal-title">Text in a modal</h2>
+      <p id="simple-modal-description">
+        Are you sure to delete this post ?
+      </p>
+      <Button
+        variant="contained"
+        color="secondary"
+        onClick={handleCloseModal}
+      >
+        Cancel
+      </Button>
+      <Button
+        variant="contained"
+        color="secondary"
+        onClick={() => onDelete()}
+      >
+        Delete
+      </Button>
+      
+    </div>
+  );
+  
 
   return (
     <div>
@@ -74,7 +152,7 @@ export default function CustomizedMenus({slug}) {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-          <Link href={`/${slug}/update/`}>
+          <Link href={`/${slug}/update`}>
         <StyledMenuItem>
           <ListItemIcon>
             <EditIcon fontSize="small" />
@@ -82,12 +160,23 @@ export default function CustomizedMenus({slug}) {
           <ListItemText primary="Edit" />
         </StyledMenuItem>
         </Link>
+        <Button onClick={handleOpenModal}>
         <StyledMenuItem >
           <ListItemIcon>
             <DeleteIcon fontSize="small" />
           </ListItemIcon>
           <ListItemText primary="Delete" />
         </StyledMenuItem>
+        </Button>
+
+        <Modal
+          open={open}
+          onClose={handleCloseModal}
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description"
+        >
+        {body}
+      </Modal>
        
       </StyledMenu>
     </div>

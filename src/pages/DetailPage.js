@@ -41,7 +41,7 @@ const DetailPage = () => {
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
-        {localStorage.getItem('Token') ? <MenuComponent slug = { slug }/> : null}
+        {localStorage.getItem('currentUser') === postDetail?.author  ? <MenuComponent slug = { slug }/> : null}
         <Grid item xs={12}>
           <CardDetail post={ postDetail }/>
         </Grid>

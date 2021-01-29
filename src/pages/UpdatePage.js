@@ -24,6 +24,7 @@ import { putData } from '../helper/PutData'
 import { toast } from 'react-toastify'
 
 
+
 // import { fetchData } from "../helper/FetchData";
 // import { toast, ToastContainer } from "react-toastify";
 import axios from "axios"
@@ -154,6 +155,7 @@ import { useParams } from "react-router-dom";
       formik.values.image= res?.data?.image
       formik.values.content= res?.data?.content
       formik.values.status= res?.data?.status
+      setData(res?.data)
     }
 
 
@@ -203,7 +205,7 @@ import { useParams } from "react-router-dom";
        onSubmit
      })
 
-  console.log(data?.image)
+  
     return (
       <Grid container component="main" className={classes.root}>
         <Grid item xs={12} component={Paper} elevation={6} square>
@@ -217,12 +219,11 @@ import { useParams } from "react-router-dom";
             </Typography>
             <form className={matches ? classes.form : classes.form2} onSubmit={formik.handleSubmit}>
               <CssTextField
-              defaultValue={data?.image}
+                defaultValue={data?.title}
                 className={classes.margin}
                 style={{ width: matches ? "80.5%" : "100%" }}
                 variant="outlined"
                 id="title"
-                data={data?.image}
                 name="title"
                 label="Title"
                 onChange={formik.handleChange}
@@ -317,7 +318,7 @@ import { useParams } from "react-router-dom";
                 type="submit"
                 className={classes.button}
               >
-                Create
+                Update
               </Button>
             </form>
           </div>
