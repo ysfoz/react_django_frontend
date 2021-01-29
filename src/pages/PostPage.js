@@ -196,7 +196,7 @@ import { postData } from '../helper/PostData'
                 onBlur={formik.handleBlur}
                 {...formik.getFieldProps('title')}
                 error={formik.touched.title && formik.errors.title}
-                  helperText={formik.touched.title && formik.errors.title}
+                helperText={formik.touched.title && formik.errors.title}
               />
               <CssTextField
                 className={classes.margin}

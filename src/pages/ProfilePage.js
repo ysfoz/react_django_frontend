@@ -1,3 +1,4 @@
+import React,{useState, useEffect} from 'react'
 import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Avatar from "@material-ui/core/Avatar";
@@ -13,7 +14,8 @@ import {useFormik} from 'formik'
 import * as Yup from "yup";
 import {useHistory} from 'react-router-dom';
 import { fetchData } from '../helper/FetchData'
-import { postData } from '../helper/PostData'
+import { putData } from '../helper/PutData'
+import axios from 'axios'
 
 const CssTextField = withStyles({
   root: {
@@ -90,7 +92,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 const ProfilePage = () => {
-
+  const [data, setData] = useState()
   const classes = useStyles();
   const matches = useMediaQuery('(min-width:750px)');
 
@@ -126,11 +128,11 @@ const ProfilePage = () => {
      
      
      const onSubmit = async(values) => {
-       postData("https://blog-backend-ysf.herokuapp.com/create/", 
+       putData("https://blog-backend-ysf.herokuapp.com/user/profile/", 
            values
          )
          .then((data) => {
-            history.push("/");
+            history.push("/profile");
        
          }).catch((err) => {
              console.log(err)
@@ -142,6 +144,29 @@ const ProfilePage = () => {
        validationSchema,
        onSubmit
      })
+
+
+
+     const fetchData = async () => {
+      const Token = localStorage.getItem("Token");
+      const res = await axios.get(`https://blog-backend-ysf.herokuapp.com/user/profile/`,{
+        headers: {
+          "Authorization": `Token ${Token}`,
+        }})
+      formik.values.first_name= res?.data?.first_name
+      formik.values.last_name= res?.data?.last_name
+      formik.values.address= res?.data?.address
+      formik.values.bio= res?.data?.bio
+      formik.values.phone= res?.data?.phone
+      formik.values.country= res?.data?.country
+      setData(res?.data)
+    }
+
+
+
+    useEffect(() => {
+      fetchData()
+    }, [])
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -156,6 +181,7 @@ const ProfilePage = () => {
           <form className={matches ? classes.form : classes.form2} onSubmit={formik.handleSubmit} >
               
             <CssTextField
+              defaultValue={data?.phone}
               className={classes.margin}
               style={{width : matches ? "40%" : "100%" }}
               variant="outlined"
