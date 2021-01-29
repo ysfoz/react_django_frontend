@@ -22,7 +22,7 @@ const HomePage = () => {
 }
 
 useEffect(() =>{fetchData()},[])
-console.log('post',postData)
+
   return (
     <Container>
       <CardList postData = {postData}/>

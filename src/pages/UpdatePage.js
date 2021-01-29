@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect,useState} from 'react';
 import {
     withStyles,
   } from "@material-ui/core/styles";
@@ -16,6 +16,18 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import CKEditor from 'ckeditor4-react';
+import {useFormik} from 'formik'
+import * as Yup from "yup";
+import {useHistory} from 'react-router-dom';
+import { fetchData } from '../helper/FetchData'
+import { putData } from '../helper/PutData'
+import { toast } from 'react-toastify'
+
+
+// import { fetchData } from "../helper/FetchData";
+// import { toast, ToastContainer } from "react-toastify";
+import axios from "axios"
+import { useParams } from "react-router-dom";
   
   const CssTextField = withStyles({
     root: {
@@ -42,9 +54,11 @@ import CKEditor from 'ckeditor4-react';
   
   const useStyles = makeStyles((theme) => ({
     root: {
+      
       width:'100%',
       overflow: 'hidden'
     },
+   
     paper: {
       margin: theme.spacing(8, 4),
       display: "flex",
@@ -67,7 +81,6 @@ import CKEditor from 'ckeditor4-react';
       alignItems: "center",
       width : '100%',
     },
-  
     // form: {
     //   marginTop: "3rem",
     //   alignItems: "center",
@@ -82,7 +95,15 @@ import CKEditor from 'ckeditor4-react';
       margin: 2,
       marginTop: 13,
     },
-   
+    address: {
+      marginTop: 13,
+      margin: 2,
+      width: "80.5%",
+    },
+    bio: {
+      margin: 2,
+      marginTop: 13,
+    },
     button: {
       marginTop: 13,
       width: "80.7%",
@@ -115,24 +136,74 @@ import CKEditor from 'ckeditor4-react';
   }));
   
   const UpdatePage = () => {
+    const [data, setData] = useState()
     const classes = useStyles();
-    const [state, setState] = React.useState({
-    status: '',
-    name: 'hai',
-  });
-
-   const handleChange = (event) => {
-      const name = event.target.name;
-      setState({
-         ...state,
-         [name]: event.target.value,
-      });
-  };
-    
     const matches = useMediaQuery("(min-width:750px)");
-   
+
+    const history = useHistory();
+     const { slug } = useParams();
+ 
+    // const fetchData = async () => {
+    //   const res = await axios.get(`https://blog-backend-ysf.herokuapp.com/${slug}/update`)
+    //   console.log(res)
+    // }
+
+    const fetchData = async () => {
+      const res = await axios.get(`https://blog-backend-ysf.herokuapp.com/${slug}/detail`)
+      formik.values.title= res?.data?.title
+      formik.values.image= res?.data?.image
+      formik.values.content= res?.data?.content
+      formik.values.status= res?.data?.status
+    }
+
+
     
-  
+    useEffect(() => {
+      fetchData()
+    }, [])
+    
+   
+
+    const validationSchema = Yup.object().shape({
+      title:Yup.string()
+        .required('you must write a title')
+        .max(100,'Title is too long'),
+      content: Yup.string()
+         .required('You must write something'),
+      image : Yup.string(),
+      status:Yup.string()
+     })
+     
+     const initialValues = {
+       title:'',
+       content:'',
+       image:'',
+       status:''
+     }
+     
+     
+     const onSubmit = (values) => {
+       
+      const response = putData(`https://blog-backend-ysf.herokuapp.com/${slug}/update/`, values)
+      .then((data) => { 
+
+       history.push(`/${slug}/detail/`);
+     })
+     .catch((err) => {
+       toast.error(err.message || " an error occured");      
+     });
+      console.log(response)
+      
+      
+   }
+     
+     const formik = useFormik({
+       initialValues,
+       validationSchema,
+       onSubmit
+     })
+
+  console.log(data?.image)
     return (
       <Grid container component="main" className={classes.root}>
         <Grid item xs={12} component={Paper} elevation={6} square>
@@ -141,17 +212,26 @@ import CKEditor from 'ckeditor4-react';
               <LocalMallIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Update Blog
+              
+              Update Post
             </Typography>
-            <form className={matches ? classes.form : classes.form2}>
+            <form className={matches ? classes.form : classes.form2} onSubmit={formik.handleSubmit}>
               <CssTextField
+              defaultValue={data?.image}
                 className={classes.margin}
                 style={{ width: matches ? "80.5%" : "100%" }}
                 variant="outlined"
                 id="title"
+                data={data?.image}
                 name="title"
                 label="Title"
-              />
+                onChange={formik.handleChange}
+                value = {formik.values.title}
+                onBlur={formik.handleBlur}
+                {...formik.getFieldProps('title')}
+                error={formik.touched.title && formik.errors.title}
+                helperText={formik.touched.title && formik.errors.title}
+           />
               <CssTextField
                 className={classes.margin}
                 style={{ width: matches ? "80.5%" : "100%" }}
@@ -159,18 +239,34 @@ import CKEditor from 'ckeditor4-react';
                 name="image"
                 label="Image URL"
                 variant="outlined"
+                onChange={formik.handleChange}
+                value = {formik.values.image}
+                onBlur={formik.handleBlur}
+                {...formik.getFieldProps('image')}
+                error={formik.touched.image && formik.errors.image}
+                helperText={formik.touched.image&& formik.errors.image}
+                
               />
-              {
+              {/* {
                 matches
                 ?
                 <div className="App" style={{  marginTop:20,width: matches ? "80.5%" : "100%" }}>
             
                 <CKEditor
-                    // data="<p>Hello from CKEditor 4!</p>"
-                    
+                    id="content"
+                    name = 'content'
+                    editor={ ClassicEditor }
+                    onChange={(event) => formik.handleChange(event)}
+                    value = {formik.values.content}
+                    onBlur={(event) => formik.handleBlur(event)}
+                    {...formik.getFieldProps('content')}
+                    error={formik.touched.content && formik.errors.content }
+                   type="classic"
+                  //  data =  {formik.values.content}
+                   readOnly={false}
                 />
             </div>
-                :
+                : */}
             <CssTextField
               
                 className={classes.margin}
@@ -180,25 +276,33 @@ import CKEditor from 'ckeditor4-react';
                 rows={8}
                 id="content"
                 name="content"
-                label="Content"
+                // label="Content"
+                onChange={formik.handleChange}
+                value = {formik.values.content}
+                onBlur={formik.handleBlur}
+                {...formik.getFieldProps('content')}
+                error={formik.touched.content && formik.errors.content }
+                helperText={formik.touched.content && formik.errors.content }
+                
               />
-              }
-               
+              
+           
               <FormControl variant="outlined" className={classes.formControl}>
                 <InputLabel htmlFor="outlined-age-native-simple">Status</InputLabel>
                 <Select
                 native
-                value={state.age}
-                onChange={handleChange}
+                value={formik.values.status}
+                onChange={formik.handleChange}
                 label="Status"
+                name='status'
                 inputProps={{
                     name: 'status',
                     id: 'outlined-age-native-simple',
                 }}
                 >
                 <option aria-label="None" value="" />
-                <option value={'d'}>Draft</option>
-                <option value={'p'}>Published</option>
+                <option value={'d'} label = 'draft'/>
+                <option value={'p'} label = 'published'/>
                 
                 </Select>
               </FormControl>
@@ -213,13 +317,14 @@ import CKEditor from 'ckeditor4-react';
                 type="submit"
                 className={classes.button}
               >
-                Update
+                Create
               </Button>
             </form>
           </div>
-         
         </Grid>
       </Grid>
     );
   };
   export default UpdatePage;
+
+ 

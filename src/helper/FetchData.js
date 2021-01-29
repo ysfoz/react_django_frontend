@@ -8,3 +8,4 @@ export const fetchData = async (path, data) => {
  
   return response?.data;
 };
+

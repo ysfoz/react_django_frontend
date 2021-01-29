@@ -5,11 +5,12 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import DraftsIcon from '@material-ui/icons/Drafts';
-import SendIcon from '@material-ui/icons/Send';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import Link from '@material-ui/core/Link';
+import axios from 'axios';
+import { useParams } from "react-router-dom";
+
 
 const StyledMenu = withStyles({
   paper: {
@@ -42,9 +43,9 @@ const StyledMenuItem = withStyles((theme) => ({
   },
 }))(MenuItem);
 
-export default function CustomizedMenus() {
+export default function CustomizedMenus({slug}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
-
+  
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -52,6 +53,8 @@ export default function CustomizedMenus() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+ 
 
   return (
     <div>
@@ -71,13 +74,15 @@ export default function CustomizedMenus() {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
+          <Link href={`/${slug}/update/`}>
         <StyledMenuItem>
           <ListItemIcon>
             <EditIcon fontSize="small" />
           </ListItemIcon>
           <ListItemText primary="Edit" />
         </StyledMenuItem>
-        <StyledMenuItem>
+        </Link>
+        <StyledMenuItem >
           <ListItemIcon>
             <DeleteIcon fontSize="small" />
           </ListItemIcon>
