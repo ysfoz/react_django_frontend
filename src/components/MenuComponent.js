@@ -9,11 +9,36 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import Link from '@material-ui/core/Link';
 import axios from 'axios';
-import { useParams } from "react-router-dom";
 import Modal from '@material-ui/core/Modal';
-
-
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import {useHistory} from "react-router-dom";
+
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    position: 'absolute',
+    width: 400,
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
+  container: {  
+    position : 'absolute',
+    top : 130,
+    right : 160,
+  },
+  container1: {
+    position : 'absolute',
+    top : 130,
+    right : 20,
+  },
+  menuText: {
+    fontSize : 15
+  },
+  menuText1: {
+    fontSize : 12
+  },
+}));
 
 
 const StyledMenu = withStyles({
@@ -47,16 +72,7 @@ const StyledMenuItem = withStyles((theme) => ({
   },
 }))(MenuItem);
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    position: 'absolute',
-    width: 400,
-    backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
-}));
+
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -73,13 +89,14 @@ function getModalStyle() {
   };
 }
 
-export default function CustomizedMenus({slug}) {
+export default function MenuComponent({slug}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [open, setOpen] = React.useState(false);
   const classes = useStyles();
   const history =useHistory()
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
+  const matches = useMediaQuery('(min-width:750px)');
 //   const { slug } = useParams();
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -117,7 +134,7 @@ export default function CustomizedMenus({slug}) {
       </p>
       <Button
         variant="contained"
-        color="secondary"
+        color="primary"
         onClick={handleCloseModal}
       >
         Cancel
@@ -135,13 +152,14 @@ export default function CustomizedMenus({slug}) {
   
 
   return (
-    <div>
+    <div className={matches ? classes.container : classes.container1}>
       <Button
         aria-controls="customized-menu"
         aria-haspopup="true"
         variant="contained"
         color="secondary"
         onClick={handleClick}
+        className={matches ? classes.menuText : classes.menuText1}
       >
         Menu
       </Button>
