@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import CardDetail from "../components/CardDetail";
 import { useParams } from "react-router-dom";
 import axios from "axios"
-
+import MenuComponent from '../components/MenuComponent'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     color: theme.palette.text.secondary,
   },
+ 
 }));
 
 const DetailPage = () => {
@@ -36,10 +37,9 @@ const DetailPage = () => {
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
+      <MenuComponent/>
         <Grid item xs={12}>
-     
           <CardDetail post={ postDetail }/>
-          
         </Grid>
       </Grid>
     </div>
