@@ -21,6 +21,17 @@ const useStyles = makeStyles((theme) => ({
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
+    textAlign : 'center',
+  },
+  paper1: {
+    position: 'absolute',
+    width: 200,
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+    marginLeft: 8,
+    textAlign : 'center'
   },
   container: {  
     position : 'absolute',
@@ -38,6 +49,15 @@ const useStyles = makeStyles((theme) => ({
   menuText1: {
     fontSize : 12
   },
+  modalText: {
+    fontSize : 15,
+    marginRight : 10,
+  },
+  modalText1: {
+    fontSize : 12,
+    marginLeft : 10,
+  },
+  
 }));
 
 
@@ -127,7 +147,7 @@ export default function MenuComponent({slug}) {
   }
 
   const body = (
-    <div style={modalStyle} className={classes.paper}>
+    <div style={modalStyle} className={matches ? classes.paper : classes.paper1}>
       <h2 id="simple-modal-title">Text in a modal</h2>
       <p id="simple-modal-description">
         Are you sure to delete this post ?
@@ -136,13 +156,15 @@ export default function MenuComponent({slug}) {
         variant="contained"
         color="primary"
         onClick={handleCloseModal}
-      >
+        className={matches ? classes.modalText : classes.modalText1}
+        >
         Cancel
       </Button>
       <Button
         variant="contained"
         color="secondary"
         onClick={() => onDelete()}
+        className={matches ? classes.modalText : classes.modalText1}
       >
         Delete
       </Button>
@@ -175,7 +197,7 @@ export default function MenuComponent({slug}) {
           <ListItemIcon>
             <EditIcon fontSize="small" />
           </ListItemIcon>
-          <ListItemText primary="Edit" />
+          <ListItemText primary="EDIT" />
         </StyledMenuItem>
         </Link>
         <Button onClick={handleOpenModal}>

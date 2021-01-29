@@ -9,6 +9,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import LocalMallIcon from "@material-ui/icons/LocalMall";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import CKEditor from 'ckeditor4-react';
+import {useFormik} from 'formik'
+import * as Yup from "yup";
+import {useHistory} from 'react-router-dom';
+import { fetchData } from '../helper/FetchData'
+import { postData } from '../helper/PostData'
 
 const CssTextField = withStyles({
   root: {
@@ -79,10 +84,64 @@ const useStyles = makeStyles((theme) => ({
 },
 }));
 
+
+
+
+
+
 const ProfilePage = () => {
-  
+
   const classes = useStyles();
   const matches = useMediaQuery('(min-width:750px)');
+
+
+
+  const history = useHistory();
+  
+
+    const validationSchema = Yup.object().shape({
+      first_name:Yup.string()
+        .max(200,'Title is too long'),
+      last_name:Yup.string()
+        .max(200,'Title is too long'),
+      address:Yup.string()
+        .max(200,'Title is too long'),
+      country:Yup.string()
+        .max(200,'Title is too long'),
+      phone:Yup.string()
+        .max(200,'Title is too long'),
+      bio:Yup.string()
+        .max(200,'Title is too long'),
+     })
+     
+     const initialValues = {
+       first_name:'',
+       last_name:'',
+       country:'',
+       phone:'',
+       bio:'',
+       address:''
+
+     }
+     
+     
+     const onSubmit = async(values) => {
+       postData("https://blog-backend-ysf.herokuapp.com/create/", 
+           values
+         )
+         .then((data) => {
+            history.push("/");
+       
+         }).catch((err) => {
+             console.log(err)
+         })
+        }
+     
+     const formik = useFormik({
+       initialValues,
+       validationSchema,
+       onSubmit
+     })
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -94,15 +153,21 @@ const ProfilePage = () => {
           <Typography component="h1" variant="h5">
             Profile
           </Typography>
-          <form className={matches ? classes.form : classes.form2} >
+          <form className={matches ? classes.form : classes.form2} onSubmit={formik.handleSubmit} >
               
             <CssTextField
               className={classes.margin}
               style={{width : matches ? "40%" : "100%" }}
               variant="outlined"
-              id="firstname"
-              name="firstname"
+              id="first_name"
+              name="first_name"
               label="First Name"
+              onChange={formik.handleChange}
+              value = {formik.values.fist_name}
+              onBlur={formik.handleBlur}
+              {...formik.getFieldProps('first_name')}
+              error={formik.touched.first_name && formik.errors.first_name}
+              helperText={formik.touched.first_name && formik.errors.first_name}
               />
             <CssTextField
               className={classes.margin}
@@ -111,6 +176,12 @@ const ProfilePage = () => {
               name="last_name"
               label="Last Name"
               variant="outlined"
+              onChange={formik.handleChange}
+              value = {formik.values.last_name}
+              onBlur={formik.handleBlur}
+              {...formik.getFieldProps('last_name')}
+              error={formik.touched.last_name && formik.errors.last_name}
+              helperText={formik.touched.last_name && formik.errors.last_name}
               />
 
             <CssTextField
@@ -120,6 +191,12 @@ const ProfilePage = () => {
               id="country"
               name="country"
               label="Country"
+              onChange={formik.handleChange}
+              value = {formik.values.country}
+              onBlur={formik.handleBlur}
+              {...formik.getFieldProps('country')}
+              error={formik.touched.country && formik.errors.country}
+              helperText={formik.touched.country && formik.errors.country}
               />
 
             <CssTextField
@@ -129,6 +206,12 @@ const ProfilePage = () => {
               id="phone"
               name="phone"
               label="Phone"
+              onChange={formik.handleChange}
+              value = {formik.values.phone}
+              onBlur={formik.handleBlur}
+              {...formik.getFieldProps('phone')}
+              error={formik.touched.phone && formik.errors.phone}
+              helperText={formik.touched.phone && formik.errors.phone}
               />
             <CssTextField
               className={classes.address}
@@ -137,18 +220,14 @@ const ProfilePage = () => {
               id="adress"
               name="address"
               label="Address"
+              onChange={formik.handleChange}
+              value = {formik.values.address}
+              onBlur={formik.handleBlur}
+              {...formik.getFieldProps('address')}
+              error={formik.touched.address && formik.errors.address}
+              helperText={formik.touched.address && formik.errors.address}
               />
-              {
-                matches
-                ?
-                <div className="App" style={{  marginTop:20,width: matches ? "80.5%" : "100%" }}>
-               Add your biografy
-                <CKEditor
-                    data="<p>Hello from CKEditor 4!</p>"
-                    
-                />
-            </div>
-                :
+              
             <CssTextField
             className={classes.bio}
             style={{width : matches ? "80.7%" : "100%" }}
@@ -156,9 +235,17 @@ const ProfilePage = () => {
             id="bio"
             name="bio"
             label="Biografy"
+            multiline
+            rows={8}
+            onChange={formik.handleChange}
+            value = {formik.values.bio}
+            onBlur={formik.handleBlur}
+            {...formik.getFieldProps('bio')}
+            error={formik.touched.bio && formik.errors.bio}
+            helperText={formik.touched.bio && formik.errors.bio}
       
               />
-              }
+              
            
 
             <Button
