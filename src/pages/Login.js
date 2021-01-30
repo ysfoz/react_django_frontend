@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext , useState, useEffect} from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -12,8 +12,8 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { postData } from "../helper/FetchData";
 import { useHistory } from "react-router-dom";
+import {AuthContext} from "../context/AuthContext"
 import { toast, ToastContainer } from "react-toastify";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -58,6 +58,8 @@ const useStyles = makeStyles((theme) => ({
 export default function SignIn() {
   let history = useHistory();
   const classes = useStyles();
+  const {setCurrentUser, fetchDataLogin, currentUser} = useContext(AuthContext)
+  const [isLogged, setLogged]= useState(false)
 
   const validationSchema = Yup.object().shape({
     username: Yup.string()
@@ -73,26 +75,40 @@ export default function SignIn() {
     password: "",
   };
 
-  const onSubmit = (values) => {
-    postData("https://blog-backend-ysf.herokuapp.com/auth/login/", values)
-      .then((data) => {
-        if (data.key) {
-          localStorage.setItem("Token", data.key);
-          localStorage.setItem("currentUser", values.username);
-          localStorage.setItem("isLoggedIn", true);
-          history.push("/");
+  const onSubmit = (values) =>{
+    const user=values.username
+    fetchDataLogin("https://blog-backend-ysf.herokuapp.com/auth/login/", values)
+    .then((data) => {
+        
+        localStorage.setItem("currentUser", values.username)
+        localStorage.setItem("isLoggedIn", true)
+        localStorage.setItem("Token", data.key)
+        setLogged(true)
+        console.log(isLogged)
+        if (isLogged){
+          setCurrentUser(user)
+          console.log(currentUser)
+          console.log(isLogged)
         }
+        
+        history.push("/");
+          
+        
       })
       .catch((err) => {
-        console.log(err);
+        toast.error("Please check your username and password");      
       });
-  };
+    }
 
   const formik = useFormik({
     initialValues,
     validationSchema,
     onSubmit,
   });
+
+  useEffect(() => {
+    
+  }, [currentUser, isLogged])
 
   return (
     <Container component="main" maxWidth="xs">

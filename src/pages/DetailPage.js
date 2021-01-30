@@ -7,6 +7,7 @@ import Paper from '@material-ui/core/Paper';
 import { useParams } from "react-router-dom";
 import axios from "axios"
 import MenuComponent from "../components/MenuComponent"
+import { fetchDataDetail } from '../helper/FetchData'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,22 +25,29 @@ const DetailPage = () => {
   const classes = useStyles();
   const { slug } = useParams();
   const [postDetail, setPostDetail] = useState()
-  const fetchData = async () => {
-    const res = await axios.get(`https://blog-backend-ysf.herokuapp.com/${slug}/detail`)
-    setPostDetail(res?.data)
+
+
+  fetchDataDetail(slug)
+  .then((data) => { 
+    setPostDetail(data)
     
-
-  }
-
+  })
+  .catch((err) => {
+    // toast.error(err.message || " an error occured");
+    console.log(err)      
+  });
+    
+ 
   useEffect(() => {
-    fetchData()
+    fetchDataDetail()
   }, [])
+
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
         <Grid item xs={12}>
         {localStorage.getItem('currentUser') === postDetail?.author ? <MenuComponent slug={slug}/> : null}
-          <CardDetail post={postDetail} fetchData={fetchData}/>
+          <CardDetail post={postDetail} fetchData={fetchDataDetail}/>
           
         </Grid>
       </Grid>

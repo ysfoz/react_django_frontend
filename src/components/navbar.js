@@ -16,6 +16,7 @@ import logo from "../assets/dj.png";
 import Link from "@material-ui/core/Link";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
+import { AuthContext} from '../context/AuthContext'
 
 //STYLE
 const useStyles = makeStyles((theme) => ({
@@ -80,6 +81,7 @@ const useStyles = makeStyles((theme) => ({
 //COMPONENT
 
 export default function NavBar() {
+  const {currentUser, setCurrentUser } = useContext(AuthContext);
   let history = useHistory();
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -99,6 +101,7 @@ export default function NavBar() {
 
   const postLogout = async () => {
     await axios.post("https://rd-restful-blog.herokuapp.com/auth/logout/");
+    setCurrentUser(null)
     localStorage.setItem("Token", "");
     localStorage.setItem("currentUser", "");
     localStorage.setItem("isLoggedIn", false);

@@ -1,29 +1,30 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import Container from "@material-ui/core/Container";
 import CardList from "../components/CardList";
 import axios from "axios";
 
-const HomePage = () => {
-  const [postData, setPostData] = useState([]);
+import {AuthContext} from "../context/AuthContext"
 
-  async function fetchData() {
-    try {
-      const results = await axios.get(
-        "https://blog-backend-ysf.herokuapp.com/list/"
-      );
-      setPostData(results?.data);
-    } catch (error) {
-      console.error(error);
-    }
-  }
+
+const HomePage = () => {
+  // const [postData, setPostData] = useState([]);
+  const {postList, setPostList, fetchDataList}=useContext(AuthContext)
+
+  fetchDataList()
+  .then((data) => {
+    setPostList(data)
+    })
+    .catch((err) => {
+      console.log(err)   
+    });
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    fetchDataList();
+  }, [postList]);
 
   return (
     <Container>
-      <CardList postData={postData} />
+      <CardList postData={postList} />
     </Container>
   );
 };
