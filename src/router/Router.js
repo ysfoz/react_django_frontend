@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { useContext } from "react";
 import HomePage from "../pages/HomePage";
 import DetailPage from "../pages/DetailPage";
 import Navbar from "../components/Navbar";
@@ -8,13 +7,11 @@ import Login from "../pages/Login";
 import ProfilePage from "../pages/ProfilePage";
 import PostPage from "../pages/PostPage";
 import UpdatePage from "../pages/UpdatePage";
-import { AuthContext } from "../context/AuthContext";
+
 
 function AppRouter(params) {
-  const { isLoggedIn, currentUser } = useContext(AuthContext);
-  console.log(isLoggedIn);
-  console.log(currentUser ? "var" : "yok");
-  console.log(localStorage.getItem("Token"));
+  
+  
   return (
     <Router>
       <Navbar />
