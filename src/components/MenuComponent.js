@@ -1,81 +1,80 @@
-import React from 'react';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
-import Link from '@material-ui/core/Link';
-import axios from 'axios';
-import Modal from '@material-ui/core/Modal';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import {useHistory} from "react-router-dom";
+import React from "react";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
+import Link from "@material-ui/core/Link";
+import axios from "axios";
+import Modal from "@material-ui/core/Modal";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useHistory } from "react-router-dom";
 
+// STYLE
 const useStyles = makeStyles((theme) => ({
   paper: {
-    position: 'absolute',
+    position: "absolute",
     width: 400,
     backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
+    border: "2px solid #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
-    textAlign : 'center',
+    textAlign: "center",
   },
   paper1: {
-    position: 'absolute',
+    position: "absolute",
     width: 200,
     backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
+    border: "2px solid #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
     marginLeft: 8,
-    textAlign : 'center'
+    textAlign: "center",
   },
-  container: {  
-    position : 'absolute',
-    top : 130,
-    right : 160,
+  container: {
+    position: "absolute",
+    top: 130,
+    right: 160,
   },
   container1: {
-    position : 'absolute',
-    top : 130,
-    right : 20,
+    position: "absolute",
+    top: 130,
+    right: 20,
   },
   menuText: {
-    fontSize : 15
+    fontSize: 15,
   },
   menuText1: {
-    fontSize : 12
+    fontSize: 12,
   },
   modalText: {
-    fontSize : 15,
-    marginRight : 10,
+    fontSize: 15,
+    marginRight: 10,
   },
   modalText1: {
-    fontSize : 12,
-    marginLeft : 10,
+    fontSize: 12,
+    marginLeft: 10,
   },
-  
 }));
-
 
 const StyledMenu = withStyles({
   paper: {
-    border: '1px solid #d3d4d5',
+    border: "1px solid #d3d4d5",
   },
 })((props) => (
   <Menu
     elevation={0}
     getContentAnchorEl={null}
     anchorOrigin={{
-      vertical: 'bottom',
-      horizontal: 'center',
+      vertical: "bottom",
+      horizontal: "center",
     }}
     transformOrigin={{
-      vertical: 'top',
-      horizontal: 'center',
+      vertical: "top",
+      horizontal: "center",
     }}
     {...props}
   />
@@ -83,16 +82,14 @@ const StyledMenu = withStyles({
 
 const StyledMenuItem = withStyles((theme) => ({
   root: {
-    '&:focus': {
+    "&:focus": {
       backgroundColor: theme.palette.primary.main,
-      '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
+      "& .MuiListItemIcon-root, & .MuiListItemText-primary": {
         color: theme.palette.common.white,
       },
     },
   },
 }))(MenuItem);
-
-
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -109,15 +106,17 @@ function getModalStyle() {
   };
 }
 
-export default function MenuComponent({slug}) {
+// COMPONENT
+
+export default function MenuComponent({ slug }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [open, setOpen] = React.useState(false);
   const classes = useStyles();
-  const history =useHistory()
+  const history = useHistory();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
-  const matches = useMediaQuery('(min-width:750px)');
-//   const { slug } = useParams();
+  const matches = useMediaQuery("(min-width:750px)");
+  //   const { slug } = useParams();
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -134,30 +133,33 @@ export default function MenuComponent({slug}) {
     setOpen(false);
   };
 
-  const onDelete = async() =>{
+  const onDelete = async () => {
     const Token = localStorage.getItem("Token");
-    const res= await axios.delete(`https://blog-backend-ysf.herokuapp.com/${slug}/update`, {
-      headers:{
-        "Authorization": `Token ${Token}`,
+    const res = await axios.delete(
+      `https://blog-backend-ysf.herokuapp.com/${slug}/update`,
+      {
+        headers: {
+          Authorization: `Token ${Token}`,
+        },
       }
-    })
-    console.log(res)
-    history.push("/")
-
-  }
+    );
+    console.log(res);
+    history.push("/");
+  };
 
   const body = (
-    <div style={modalStyle} className={matches ? classes.paper : classes.paper1}>
+    <div
+      style={modalStyle}
+      className={matches ? classes.paper : classes.paper1}
+    >
       <h2 id="simple-modal-title">Text in a modal</h2>
-      <p id="simple-modal-description">
-        Are you sure to delete this post ?
-      </p>
+      <p id="simple-modal-description">Are you sure to delete this post ?</p>
       <Button
         variant="contained"
         color="primary"
         onClick={handleCloseModal}
         className={matches ? classes.modalText : classes.modalText1}
-        >
+      >
         Cancel
       </Button>
       <Button
@@ -168,10 +170,8 @@ export default function MenuComponent({slug}) {
       >
         Delete
       </Button>
-      
     </div>
   );
-  
 
   return (
     <div className={matches ? classes.container : classes.container1}>
@@ -192,21 +192,21 @@ export default function MenuComponent({slug}) {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-          <Link href={`/${slug}/update`}>
-        <StyledMenuItem>
-          <ListItemIcon>
-            <EditIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText primary="EDIT" />
-        </StyledMenuItem>
+        <Link href={`/${slug}/update`}>
+          <StyledMenuItem>
+            <ListItemIcon>
+              <EditIcon fontSize="small" />
+            </ListItemIcon>
+            <ListItemText primary="EDIT" />
+          </StyledMenuItem>
         </Link>
         <Button onClick={handleOpenModal}>
-        <StyledMenuItem >
-          <ListItemIcon>
-            <DeleteIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText primary="Delete" />
-        </StyledMenuItem>
+          <StyledMenuItem>
+            <ListItemIcon>
+              <DeleteIcon fontSize="small" />
+            </ListItemIcon>
+            <ListItemText primary="Delete" />
+          </StyledMenuItem>
         </Button>
 
         <Modal
@@ -215,9 +215,8 @@ export default function MenuComponent({slug}) {
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"
         >
-        {body}
-      </Modal>
-       
+          {body}
+        </Modal>
       </StyledMenu>
     </div>
   );
