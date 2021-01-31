@@ -37,6 +37,8 @@ export default function GroupSizesColors(props) {
             key={index}
             value={value}
             onClick={() => props.setPage(value)}
+            color={value == props?.page ? 'secondary' : null}
+            style={{marginLeft:1}}
           >
             {value}
           </Button>

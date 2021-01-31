@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import MenuComponent from "../components/MenuComponent";
 import { fetchDataDetail } from "../helper/FetchData";
 
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -22,6 +23,7 @@ const DetailPage = () => {
   const classes = useStyles();
   const { slug } = useParams();
   const [postDetail, setPostDetail] = useState();
+
 
   fetchDataDetail(slug)
     .then((data) => {

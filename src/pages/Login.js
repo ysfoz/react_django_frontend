@@ -58,9 +58,7 @@ const useStyles = makeStyles((theme) => ({
 export default function SignIn() {
   let history = useHistory();
   const classes = useStyles();
-  const { setCurrentUser, fetchDataLogin, currentUser } = useContext(
-    AuthContext
-  );
+  const { setCurrentUser, fetchDataLogin, currentUser } = useContext(AuthContext);
   const [isLogged, setLogged] = useState(false);
 
   const validationSchema = Yup.object().shape({

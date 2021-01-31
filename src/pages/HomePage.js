@@ -3,20 +3,44 @@ import Container from "@material-ui/core/Container";
 import CardList from "../components/CardList";
 import { AuthContext } from "../context/AuthContext";
 import PaginationButtons from "../components/PaginationButtons";
+import logo from '../assets/load.gif'
+import Avatar from "@material-ui/core/Avatar";
+import { makeStyles } from "@material-ui/core/styles";
+
+
+const useStyles = makeStyles((theme) => ({
+  small: {
+    width: '30%',
+    height: '30%',
+    margin: '50vh auto'
+
+
+  },
+}))
+
 
 const HomePage = () => {
-  const { postList, fetchDataList } = useContext(AuthContext);
+  const classes = useStyles();
+  const { postList, fetchDataList, loading } = useContext(AuthContext);
   const [page, setPage] = useState(1);
 
   useEffect(() => {
     fetchDataList(page);
   }, [page]);
-
   return (
-    <Container>
-      <CardList postData={postList} />
-      <PaginationButtons setPage={(value) => setPage(value)} />
+    
+    <Container style={{backgroundColor: loading ? null : '#dcdfe4'}}>
+      {loading 
+      ?
+      <Avatar alt="Remy Sharp" src={logo} className={classes.small} />
+      :
+      <><PaginationButtons setPage={(value) => setPage(value)} page={page} />
+      <CardList postData={postList} /></>
+  }
     </Container>
   );
 };
 export default HomePage;
+
+
+

@@ -7,13 +7,16 @@ function AuthContextProvider(props) {
   const [postList, setPostList] = useState();
   const [pageCount, setPageCount] = useState();
   const [currentUser, setCurrentUser] = useState(null);
+  const [loading, setLoading] = useState(false)
 
   const fetchDataList = async (num) => {
+    setLoading(true)
     const res = await axios.get("https://blog-backend-ysf.herokuapp.com/list/");
     const items = res?.data;
     const page = res?.data?.filter(
       (item, i) => i + 1 <= 6 * num && i >= (num - 1) * 6
     );
+    setLoading(false)
     setPageCount(Math.ceil(items?.length / 6));
     setPostList(num ? page : items);
   };
@@ -33,6 +36,7 @@ function AuthContextProvider(props) {
         currentUser,
         fetchDataLogin,
         pageCount,
+        loading,
       }}
     >
       {props.children}

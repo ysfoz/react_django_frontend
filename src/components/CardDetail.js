@@ -164,11 +164,12 @@ export default function CardDetail({ post, fetchData }) {
             <FavoriteIcon
               color={isLiked ? "secondary" : "default"}
               onClick={like}
+            
             />
           </Badge>
         </IconButton>
         <IconButton aria-label="Visibility">
-          <Badge badgeContent={post?.view_count} color="secondary">
+          <Badge badgeContent={post?.view_count} color="secondary" >
             <VisibilityIcon />
           </Badge>
         </IconButton>

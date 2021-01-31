@@ -85,6 +85,7 @@ export default function NavBar() {
   let history = useHistory();
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
+
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -213,3 +214,4 @@ export default function NavBar() {
     </div>
   );
 }
+

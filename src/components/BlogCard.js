@@ -21,9 +21,11 @@ import Link from "@material-ui/core/Link";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    minHeight: "100%",
+    minHeight: "80%",
     maxWidth: 345,
     marginTop: 50,
+    borderRadius:50,
+    backgroundColor:'#f3f4d3'
   },
   header: {
     textOverflow: "ellipsis",
