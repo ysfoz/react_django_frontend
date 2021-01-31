@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext,useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -82,9 +82,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function NavBar() {
   const {currentUser, setCurrentUser } = useContext(AuthContext);
+  const [login, setIsLogin] = useState(null);
   let history = useHistory();
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -105,8 +106,11 @@ export default function NavBar() {
     localStorage.setItem("Token", "");
     localStorage.setItem("currentUser", "");
     localStorage.setItem("isLoggedIn", false);
+    setIsLogin(false)
     history.push("/");
   };
+
+// useEffect(()=>{},[login])
 
   return (
     <div className={classes.root}>
