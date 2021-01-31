@@ -1,4 +1,4 @@
-import React, { useContext,useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -16,7 +16,7 @@ import logo from "../assets/dj.png";
 import Link from "@material-ui/core/Link";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-import { AuthContext} from '../context/AuthContext'
+import { AuthContext } from "../context/AuthContext";
 
 //STYLE
 const useStyles = makeStyles((theme) => ({
@@ -65,7 +65,6 @@ const useStyles = makeStyles((theme) => ({
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
     transition: theme.transitions.create("width"),
     width: "100%",
@@ -81,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
 //COMPONENT
 
 export default function NavBar() {
-  const {currentUser, setCurrentUser } = useContext(AuthContext);
+  const { currentUser, setCurrentUser } = useContext(AuthContext);
   const [login, setIsLogin] = useState(null);
   let history = useHistory();
   const classes = useStyles();
@@ -102,15 +101,13 @@ export default function NavBar() {
 
   const postLogout = async () => {
     await axios.post("https://rd-restful-blog.herokuapp.com/auth/logout/");
-    setCurrentUser(null)
+    setCurrentUser(null);
     localStorage.setItem("Token", "");
     localStorage.setItem("currentUser", "");
     localStorage.setItem("isLoggedIn", false);
-    setIsLogin(false)
+    setIsLogin(false);
     history.push("/");
   };
-
-// useEffect(()=>{},[login])
 
   return (
     <div className={classes.root}>

@@ -2,7 +2,6 @@ import Grid from "@material-ui/core/Grid";
 import BlogCard from "../components/BlogCard";
 
 const CardList = ({ postData }) => {
- 
   return (
     <>
       <Grid container spacing={5}>

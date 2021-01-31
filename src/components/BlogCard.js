@@ -1,4 +1,4 @@
-import React,{ useState } from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import Card from "@material-ui/core/Card";
@@ -100,7 +100,6 @@ export default function BlogCard({
           component="p"
           style={{ height: 75, paddingTop: 2 }}
         >
-          {/* style={{textOverflow:'ellipsis',overflow: 'hidden',whiteSpace: 'nowrap'}} */}
           {content.substring(0, 111) + ". . ."}
         </Typography>
       </CardContent>
@@ -125,9 +124,7 @@ export default function BlogCard({
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded,
           })}
-          onClick={
-            handleExpandClick 
-          }
+          onClick={handleExpandClick}
           aria-expanded={expanded}
           aria-label="show more"
         >

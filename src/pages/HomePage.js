@@ -1,30 +1,21 @@
-import React, { useEffect, useState,useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Container from "@material-ui/core/Container";
 import CardList from "../components/CardList";
-import axios from "axios";
-
-import {AuthContext} from "../context/AuthContext"
-
+import { AuthContext } from "../context/AuthContext";
+import PaginationButtons from "../components/PaginationButtons";
 
 const HomePage = () => {
-  // const [postData, setPostData] = useState([]);
-  const {postList, setPostList, fetchDataList}=useContext(AuthContext)
-
-  fetchDataList()
-  .then((data) => {
-    setPostList(data)
-    })
-    .catch((err) => {
-      console.log(err)   
-    });
+  const { postList, fetchDataList } = useContext(AuthContext);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
-    fetchDataList();
-  }, [postList]);
+    fetchDataList(page);
+  }, [page]);
 
   return (
     <Container>
       <CardList postData={postList} />
+      <PaginationButtons setPage={(value) => setPage(value)} />
     </Container>
   );
 };

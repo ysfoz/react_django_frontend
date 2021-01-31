@@ -9,6 +9,7 @@ import PostPage from "../pages/PostPage";
 import UpdatePage from "../pages/UpdatePage";
 
 
+
 function AppRouter(params) {
   
   
@@ -37,6 +38,7 @@ function AppRouter(params) {
           path="/:slug/update"
           component={localStorage.getItem("Token") ? UpdatePage : Login}
         />
+      
 
         {/* <Route exact path="/forgot-password" component={ForgotPassword} /> */}
         {/* <Route
