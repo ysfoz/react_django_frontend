@@ -1,12 +1,14 @@
 import React from "react";
 import ScrollText from "react-scroll-text";
+import foto from '../assets/banner.jpeg'
 
 export const SliderText = () => {
   return (
     <div
       style={{
         backgroundColor:"rgba(0,0,0,0.7)",
-        color: "white",
+        backgroundImage:`url(${foto})`,
+        color: "#263238",
         fontSize: 20,
         fontWeight: "bold",
         width:'98%',
@@ -15,7 +17,7 @@ export const SliderText = () => {
       }}
     >
       <h2 style={{ padding:10}}>Wie funktioniert es</h2>
-      <ScrollText speed={100} style={{ padding:10}}>
+      <ScrollText speed={100} style={{ padding:10,width:'98%'}}>
         Erstens wurde das Backend mit Django Framework gemacht. In diesem Phase
         wurde zwei Apps, User für Benutzer and Post für Articles erstellt. Es wurde ein model
         die Profile der benutzer in User App erstellt. In dem Anderen App
