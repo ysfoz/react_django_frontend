@@ -6,6 +6,7 @@ import { AuthContext } from "../context/AuthContext";
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    marginTop:15,
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -31,9 +32,10 @@ export default function GroupSizesColors(props) {
   }, []);
   return (
     <div className={classes.root}>
-      <ButtonGroup size="small" aria-label="small outlined button group">
+      <ButtonGroup  variant="contained" color="primary" aria-label="contained primary button group">
         {pageListFunc().map((value, index) => (
           <Button
+           style={{borderRadius:'20px'}}
             key={index}
             value={value}
             onClick={() => props.setPage(value)}

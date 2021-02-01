@@ -18,20 +18,30 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 
+
+
 //STYLE
+
+
+
+
+
 const useStyles = makeStyles((theme) => ({
   font: {
     fontSize: 10,
     marginLeft: 2,
     marginLeft: theme.spacing(-1),
+    
   },
   small: {
     width: theme.spacing(5),
     height: theme.spacing(5),
   },
   root: {
+    backgroundColor:'red',
     flexGrow: 1,
     overflow: "hidden",
+    
   },
   menuButton: {
     marginRight: theme.spacing(),
@@ -111,8 +121,8 @@ export default function NavBar() {
   };
 
   return (
-    <div className={classes.root}>
-      <AppBar position="static">
+    <div className={classes.root} >
+      <AppBar position="static" color='#9ea9b1' style={{backgroundImage:'linear-gradient(to right,#7e57c2,black, #d81b60)',color:'#efefef'}} >
         <Toolbar>
           <Link href="/">
             <IconButton

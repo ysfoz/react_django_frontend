@@ -21,16 +21,27 @@ import Link from "@material-ui/core/Link";
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    marginTop:theme.spacing(3),
+    backgroundImage:'linear-gradient(#990726, white)',
     minHeight: "80%",
     maxWidth: 345,
-    marginTop: 50,
-    borderRadius:50,
-    backgroundColor:'#f3f4d3'
+    color:'white',
+    borderRadius:20,
+    transition: 'width 2s, height 2s, transform 0.3s',
+    '&:hover':{
+      backgroundImage:'linear-gradient(white,#990726 )',
+      boxShadow:'7px 7px rgba(0,0,0,0.1)',
+      transform: 'scale(1.03, 1.03)',
+      color:'black',
+      
+     
+     }
   },
   header: {
     textOverflow: "ellipsis",
     overflow: "hidden",
     whiteSpace: "nowrap",
+   
   },
   media: {
     height: 0,
@@ -47,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
     transform: "rotate(180deg)",
   },
   avatar: {
-    backgroundColor: red[500],
+    backgroundColor: '#e8a628',
   },
 }));
 
@@ -72,7 +83,7 @@ export default function BlogCard({
   };
 
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} >
       <Link
         color="inherit"
         style={{ textDecoration: "none" }}
@@ -81,11 +92,11 @@ export default function BlogCard({
         <CardHeader
           className={classes.header}
           avatar={
-            <Avatar aria-label="recipe" className={classes.avatar}>
-              {author[0]}
+            <Avatar aria-label="recipe" className={classes.avatar} >
+              {author[0].toUpperCase()}
             </Avatar>
           }
-          title={title}
+          title={title.toUpperCase()}
           subheader={moment(publishDate).format("LL")}
         />
 
@@ -145,3 +156,6 @@ export default function BlogCard({
     </Card>
   );
 }
+
+
+

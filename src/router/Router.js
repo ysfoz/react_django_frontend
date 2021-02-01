@@ -7,6 +7,7 @@ import Login from "../pages/Login";
 import ProfilePage from "../pages/ProfilePage";
 import PostPage from "../pages/PostPage";
 import UpdatePage from "../pages/UpdatePage";
+import { Footer } from '../components/Footer'
 
 
 
@@ -53,6 +54,7 @@ function AppRouter(params) {
               />
               <Route path="/" component={Main} /> */}
       </Switch>
+              <Footer/>
     </Router>
   );
 }
