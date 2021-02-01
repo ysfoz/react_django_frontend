@@ -1,8 +1,10 @@
 import React from "react";
 import ScrollText from "react-scroll-text";
 import foto from '../assets/banner.jpeg'
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 export const SliderText = () => {
+  const matches = useMediaQuery(("(min-width:750px)"))
   return (
     <div
       style={{
@@ -11,13 +13,13 @@ export const SliderText = () => {
         color: "#263238",
         fontSize: 20,
         fontWeight: "bold",
-        width:'98%',
+        width: matches? '97%' : '92%',
         borderRadius:10
 
       }}
     >
       <h2 style={{ padding:10}}>Wie funktioniert es</h2>
-      <ScrollText speed={100} style={{ padding:10,width:'98%'}}>
+      <ScrollText speed={100} style={{ padding:10,width: matches? '98%' : '93%'}}>
         Erstens wurde das Backend mit Django Framework gemacht. In diesem Phase
         wurde zwei Apps, User für Benutzer and Post für Articles erstellt. Es wurde ein model
         die Profile der benutzer in User App erstellt. In dem Anderen App

@@ -12,7 +12,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import InputBase from "@material-ui/core/InputBase";
 import Avatar from "@material-ui/core/Avatar";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-import logo from "../assets/dj.png";
+import logo from "../assets/mavi.png";
 import Link from "@material-ui/core/Link";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
@@ -30,12 +30,12 @@ const useStyles = makeStyles((theme) => ({
   font: {
     fontSize: 10,
     marginLeft: 2,
-    marginLeft: theme.spacing(-1),
+    // marginLeft: theme.spacing(1),
     
   },
   small: {
-    width: theme.spacing(5),
-    height: theme.spacing(5),
+    width: theme.spacing(7),
+    height: theme.spacing(7),
   },
   root: {
     backgroundColor:'red',
