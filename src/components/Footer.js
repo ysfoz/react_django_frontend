@@ -27,7 +27,7 @@ export const Footer = () => {
       </IconButton>
       <IconButton aria-label="Comment">
       <Link href='https://github.com/ysfoz'>
-        <GitHubIcon />
+        <GitHubIcon color='action'/>
         </Link >
       </IconButton>
       <IconButton aria-label="Comment">

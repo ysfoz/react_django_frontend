@@ -1,6 +1,6 @@
 import React from "react";
 import ScrollText from "react-scroll-text";
-import foto from '../assets/banner.jpeg'
+import foto from '../assets/banner2.jpg'
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 export const SliderText = () => {
@@ -10,7 +10,8 @@ export const SliderText = () => {
       style={{
         backgroundColor:"rgba(0,0,0,0.7)",
         backgroundImage:`url(${foto})`,
-        color: "#263238",
+        color: 'white',
+        // "#263238",
         fontSize: 20,
         fontWeight: "bold",
         width: matches? '97%' : '92%',
