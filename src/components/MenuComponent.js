@@ -118,7 +118,7 @@ export default function MenuComponent({ slug }) {
   const matches = useMediaQuery("(min-width:750px)");
 
 
-  Strict
+  
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
