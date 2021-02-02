@@ -5,7 +5,7 @@ import CardDetail from "../components/CardDetail";
 import { useParams } from "react-router-dom";
 import MenuComponent from "../components/MenuComponent";
 import { fetchDataDetail } from "../helper/FetchData";
-
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,17 +24,36 @@ const DetailPage = () => {
   const { slug } = useParams();
   const [postDetail, setPostDetail] = useState();
 
-
-  fetchDataDetail(slug)
-    .then((data) => {
-      setPostDetail(data);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  const fetchDataDetail = async (slug) => {
+    const Token = localStorage.getItem("Token");
+    if (Token) {
+      try {
+        const res = await axios.get(
+          `https://blog-backend-ysf.herokuapp.com/${slug}/detail`,
+          {
+            headers: {
+              Authorization: `Token ${Token}`,
+            },
+          }
+        );
+        setPostDetail(res?.data);
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      try {
+        const res = await axios.get(
+          `https://blog-backend-ysf.herokuapp.com/${slug}/detail`
+        );
+        setPostDetail(res?.data);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
 
   useEffect(() => {
-    fetchDataDetail();
+    fetchDataDetail(slug);
   }, []);
 
   return (

@@ -6,7 +6,7 @@ import PaginationButtons from "../components/PaginationButtons";
 import logo from "../assets/load.gif";
 import Avatar from "@material-ui/core/Avatar";
 import { makeStyles } from "@material-ui/core/styles";
-import { SliderText } from "../components/SliderText";
+import SliderText  from "../components/SliderText";
 
 const useStyles = makeStyles((theme) => ({
   small: {

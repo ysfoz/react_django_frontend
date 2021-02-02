@@ -76,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
 export default function CardDetail({ post, fetchData }) {
   const [isLiked, setLiked] = useState(false);
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = useState(false);
 
   const history = useHistory();
 
@@ -123,7 +123,7 @@ export default function CardDetail({ post, fetchData }) {
       .then((data) => {
         fetchData();
         history.push(`/${post.slug}/detail/`);
-        if (data == 201) {
+        if (data === 201) {
           setLiked(true);
         } else {
           setLiked(false);
@@ -152,6 +152,8 @@ export default function CardDetail({ post, fetchData }) {
         className={classes.media}
         image={post?.image}
         title="Card Image"
+        src='img'
+        
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
@@ -160,21 +162,21 @@ export default function CardDetail({ post, fetchData }) {
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
-          <Badge badgeContent={post?.like_count} color="secondary">
+          <Badge badgeContent={post?.like_count} secondary='true'>
             <FavoriteIcon
-              color={isLiked ? "secondary" : "default"}
+              color={isLiked ? "secondary" : "action"}
               onClick={like}
             
             />
           </Badge>
         </IconButton>
         <IconButton aria-label="Visibility">
-          <Badge badgeContent={post?.view_count} color="secondary" >
+          <Badge badgeContent={post?.view_count} secondary='true' >
             <VisibilityIcon />
           </Badge>
         </IconButton>
         <IconButton aria-label="ChatBubbleOutline">
-          <Badge badgeContent={post?.comment_count} color="secondary">
+          <Badge badgeContent={post?.comment_count} secondary='true'>
             <ChatBubbleOutlineIcon />
           </Badge>
         </IconButton>

@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function GroupSizesColors(props) {
+const Pagination = (props) => {
   const { pageCount } = useContext(AuthContext);
   const classes = useStyles();
   const pageListFunc = () => {
@@ -29,18 +29,19 @@ export default function GroupSizesColors(props) {
 
   useEffect(() => {
     pageListFunc();
-  }, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]);
+
   return (
     <div className={classes.root}>
       <ButtonGroup  variant="contained" color="primary" aria-label="contained primary button group">
         {pageListFunc().map((value, index) => (
           <Button
-           style={{borderRadius:'20px'}}
+           style={{borderRadius:'20px',marginLeft:1}}
             key={index}
             value={value}
             onClick={() => props.setPage(value)}
-            color={value == props?.page ? 'secondary' : null}
-            style={{marginLeft:1}}
+            color={value === props?.page ? 'secondary' : 'primary'}
           >
             {value}
           </Button>
@@ -49,3 +50,5 @@ export default function GroupSizesColors(props) {
     </div>
   );
 }
+
+export default Pagination;

@@ -18,19 +18,13 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 
-
-
 //STYLE
-
-
-
-
 
 const useStyles = makeStyles((theme) => ({
   font: {
     fontSize: 10,
     marginLeft: 2,
-    // marginLeft: theme.spacing(1),
+   
     
   },
   small: {
@@ -90,8 +84,8 @@ const useStyles = makeStyles((theme) => ({
 //COMPONENT
 
 export default function NavBar() {
-  const { currentUser, setCurrentUser } = useContext(AuthContext);
-  const [login, setIsLogin] = useState(null);
+  const { setCurrentUser } = useContext(AuthContext);
+  const [setIsLogin] = useState(null);
   let history = useHistory();
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -111,18 +105,21 @@ export default function NavBar() {
   const matches = useMediaQuery("(min-width:750px)");
 
   const postLogout = async () => {
-    await axios.post("https://rd-restful-blog.herokuapp.com/auth/logout/");
+   try{ await axios.post("https://rd-restful-blog.herokuapp.com/auth/logout/");
     setCurrentUser(null);
     localStorage.setItem("Token", "");
     localStorage.setItem("currentUser", "");
     localStorage.setItem("isLoggedIn", false);
     setIsLogin(false);
     history.push("/");
+  }catch(err){
+    console.log(err)
+  }
   };
 
   return (
     <div className={classes.root} >
-      <AppBar position="static" color='#9ea9b1' style={{backgroundImage:'linear-gradient(to right,#7e57c2,black, #d81b60)',color:'#efefef'}} >
+      <AppBar position="static"  style={{backgroundImage:'linear-gradient(to right,#7e57c2,black, #d81b60)',color:'#efefef'}} >
         <Toolbar>
           <Link href="/">
             <IconButton

@@ -1,4 +1,4 @@
-import React from "react";
+import React,{ useState,useRef } from "react";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
@@ -109,14 +109,17 @@ function getModalStyle() {
 // COMPONENT
 
 export default function MenuComponent({ slug }) {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [open, setOpen] = React.useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [open, setOpen] = useState(false);
   const classes = useStyles();
   const history = useHistory();
   // getModalStyle is not a pure function, we roll the style only on the first render
-  const [modalStyle] = React.useState(getModalStyle);
+  const [modalStyle] = useState(getModalStyle);
   const matches = useMediaQuery("(min-width:750px)");
-  //   const { slug } = useParams();
+
+
+  Strict
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -135,6 +138,7 @@ export default function MenuComponent({ slug }) {
 
   const onDelete = async () => {
     const Token = localStorage.getItem("Token");
+    try{
     const res = await axios.delete(
       `https://blog-backend-ysf.herokuapp.com/${slug}/update`,
       {
@@ -143,8 +147,10 @@ export default function MenuComponent({ slug }) {
         },
       }
     );
-    console.log(res);
     history.push("/");
+  }catch(err){
+    console.log(err)
+  }
   };
 
   const body = (

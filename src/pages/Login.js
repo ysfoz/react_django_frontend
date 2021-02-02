@@ -110,7 +110,7 @@ export default function SignIn() {
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
-        <ToastContainer
+        {/* <ToastContainer
           position="top-right"
           autoClose={2000}
           hideProgressBar={false}
@@ -119,7 +119,7 @@ export default function SignIn() {
           rtl={false}
           pauseOnFocusLoss
           pauseOnHover
-        />
+        /> */}
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
@@ -184,7 +184,7 @@ export default function SignIn() {
             </Link>
           </Grid>
           <Grid item>
-            <Link href="#" variant="body2">
+            <Link href="/register" variant="body2">
               {"Don't have an account? Sign Up"}
             </Link>
           </Grid>
