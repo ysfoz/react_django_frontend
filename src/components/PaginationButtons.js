@@ -34,10 +34,10 @@ const Pagination = (props) => {
 
   return (
     <div className={classes.root}>
-      <ButtonGroup  variant="contained" color="primary" aria-label="contained primary button group">
+      <ButtonGroup  variant="contained" style={{backgroundColor:'none'}} aria-label="contained primary button group">
         {pageListFunc().map((value, index) => (
           <Button
-           style={{borderRadius:'20px',marginLeft:1}}
+           style={{borderRadius:20,marginLeft:1,padding:'4 0',height:40}}
             key={index}
             value={value}
             onClick={() => props.setPage(value)}
