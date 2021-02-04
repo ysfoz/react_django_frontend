@@ -15,7 +15,7 @@ function AppRouter(params) {
   
   
   return (
-    <Router>
+    <Router >
       <Navbar />
       <Switch>
         <Route exact path="/" component={HomePage} />

@@ -16,10 +16,12 @@ export const Footer = () => {
         display:'flex',
         flexDirection:'row',
         justifyContent:'space-between',
-        marginTop:30
+        marginTop:30,
+      
+      
       }}
     >
-        <div>
+        <div >
       <IconButton aria-label="Comment">
           <Link href='https://www.linkedin.com/in/ysf-öztürk/'>
         <LinkedInIcon color='primary' />
@@ -37,7 +39,7 @@ export const Footer = () => {
       </IconButton>
         </div>
 
-      <p style={{color:'#62727b',marginRight:10,margin:'auto auto'}}>Designed by Anonymous © Ysf Studio 2020 All right reserved</p>
+      <p style={{color:'#62727b',margin:'auto 10px'}}>Designed by Anonymous © Ysf Studio 2021 All right reserved</p>
     </footer>
   );
 };

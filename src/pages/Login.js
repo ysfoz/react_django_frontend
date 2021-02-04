@@ -18,19 +18,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
-// FOOTER
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright ©️ "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+
 
 // STYLE
 const useStyles = makeStyles((theme) => ({
@@ -104,7 +92,7 @@ export default function SignIn() {
   useEffect(() => {}, [currentUser, isLogged]);
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" style={{minHeight:'100vh'}}>
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -190,9 +178,7 @@ export default function SignIn() {
           </Grid>
         </Grid>
       </div>
-      <Box mt={8}>
-        <Copyright />
-      </Box>
+    
     </Container>
   );
 }
