@@ -18,11 +18,12 @@ import Collapse from "@material-ui/core/Collapse";
 import moment from "moment";
 import Link from "@material-ui/core/Link";
 
+
 const useStyles = makeStyles((theme) => ({
   root: {
     marginTop:theme.spacing(3),
     backgroundImage:'linear-gradient(#990726, white)',
-    minHeight: "80%",
+    minHeight: "100%",
     maxWidth: 345,
     color:'white',
     borderRadius:20,

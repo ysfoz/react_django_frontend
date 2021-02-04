@@ -10,6 +10,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    alignSelf:'center',
     "& > *": {
       margin: theme.spacing(1),
     },

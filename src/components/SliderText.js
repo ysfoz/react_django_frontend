@@ -4,7 +4,7 @@ import foto from '../assets/banner2.jpg'
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 const SliderText = () => {
-  const matches = useMediaQuery(("(min-width:750px)"))
+  const matches = useMediaQuery(("(min-width:600px)"))
   return (
     <div
       style={{
@@ -13,7 +13,7 @@ const SliderText = () => {
         color: 'white',
         fontSize: 20,
         fontWeight: "bold",
-        width: matches? '97%' : '92%',
+        width: matches? '98%' : '345px',
         borderRadius:10
 
       }}

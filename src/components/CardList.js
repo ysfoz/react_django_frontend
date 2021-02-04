@@ -4,9 +4,9 @@ import BlogCard from "../components/BlogCard";
 const CardList = ({ postData }) => {
   return (
     <>
-      <Grid container spacing={5}>
+      <Grid container spacing={3}>
         {postData?.map((post, i) => (
-          <Grid item xs={12} sm={4} key={i}>
+          <Grid item xs={12} sm={6} md={4} key={i}>
             <BlogCard
               key={i}
               title={post.title}
