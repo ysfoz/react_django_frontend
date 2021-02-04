@@ -85,7 +85,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function NavBar() {
   const { setCurrentUser } = useContext(AuthContext);
-  const [setIsLogin] = useState(null);
+  const [isLogin, setIsLogin] = useState(null);
   let history = useHistory();
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -116,6 +116,8 @@ export default function NavBar() {
     console.log(err)
   }
   };
+
+
 
   return (
     <div className={classes.root} >

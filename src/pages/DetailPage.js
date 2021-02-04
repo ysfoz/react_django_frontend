@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import MenuComponent from "../components/MenuComponent";
 import { fetchDataDetail } from "../helper/FetchData";
 import axios from "axios";
+import { HomeButton} from '../components/HomeButton'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,7 +25,7 @@ const DetailPage = () => {
   const { slug } = useParams();
   const [postDetail, setPostDetail] = useState();
 
-  const fetchDataDetail = async (slug) => {
+  const fetchDataDetail = async () => {
     const Token = localStorage.getItem("Token");
     if (Token) {
       try {
@@ -53,7 +54,7 @@ const DetailPage = () => {
   };
 
   useEffect(() => {
-    fetchDataDetail(slug);
+    fetchDataDetail();
   }, []);
 
   return (
@@ -66,6 +67,7 @@ const DetailPage = () => {
           <CardDetail post={postDetail} fetchData={fetchDataDetail} />
         </Grid>
       </Grid>
+      <HomeButton/>
     </div>
   );
 };

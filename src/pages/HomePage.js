@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const HomePage = () => {
+const HomePage = (props) => {
   const classes = useStyles();
   const { postList, fetchDataList, loading } = useContext(AuthContext);
   const [page, setPage] = useState(1);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import Card from "@material-ui/core/Card";
@@ -134,6 +134,16 @@ export default function CardDetail({ post, fetchData }) {
       });
   };
 
+
+  useEffect(() =>{
+    fetchData()
+    
+  }, [])
+  // useEffect(() =>{
+  //   fetchDataList()
+  
+  // }, [post?.like_count, post?.comment_count])
+
   return (
     <Card className={matches ? classes.root : classes.root2}>
       <CardHeader
@@ -162,7 +172,7 @@ export default function CardDetail({ post, fetchData }) {
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
-          <Badge badgeContent={post?.like_count} secondary='true'>
+          <Badge badgeContent={post?.like_count} color="secondary">
             <FavoriteIcon
               color={isLiked ? "secondary" : "action"}
               onClick={like}
@@ -171,12 +181,12 @@ export default function CardDetail({ post, fetchData }) {
           </Badge>
         </IconButton>
         <IconButton aria-label="Visibility">
-          <Badge badgeContent={post?.view_count} secondary='true' >
+          <Badge badgeContent={post?.view_count} color="secondary" >
             <VisibilityIcon />
           </Badge>
         </IconButton>
         <IconButton aria-label="ChatBubbleOutline">
-          <Badge badgeContent={post?.comment_count} secondary='true'>
+          <Badge badgeContent={post?.comment_count} color="secondary">
             <ChatBubbleOutlineIcon />
           </Badge>
         </IconButton>
