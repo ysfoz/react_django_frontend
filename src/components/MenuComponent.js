@@ -1,4 +1,4 @@
-import React,{ useState,useRef } from "react";
+import React, { useState } from "react";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
@@ -113,7 +113,7 @@ export default function MenuComponent({ slug }) {
   const matches = useMediaQuery("(min-width:750px)");
 
 
-  
+
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -133,19 +133,19 @@ export default function MenuComponent({ slug }) {
 
   const onDelete = async () => {
     const Token = localStorage.getItem("Token");
-    try{
-    const res = await axios.delete(
-      `https://blog-backend-ysf.herokuapp.com/${slug}/update`,
-      {
-        headers: {
-          Authorization: `Token ${Token}`,
-        },
-      }
-    );
-    history.push("/");
-  }catch(err){
-    console.log(err)
-  }
+    try {
+      const res = await axios.delete(
+        `https://blog-backend-ysf.herokuapp.com/${slug}/update`,
+        {
+          headers: {
+            Authorization: `Token ${Token}`,
+          },
+        }
+      );
+      history.push("/");
+    } catch (err) {
+      console.log(err)
+    }
   };
 
   const body = (
@@ -173,11 +173,11 @@ export default function MenuComponent({ slug }) {
         Delete
       </Button>
     </div>
- 
+
   );
 
   return (
-   
+
     <div className={classes.container}>
       <Button
         aria-controls="customized-menu"
@@ -222,6 +222,6 @@ export default function MenuComponent({ slug }) {
           {body}
         </Modal>
       </StyledMenu>
-    </div> 
+    </div>
   );
 }
