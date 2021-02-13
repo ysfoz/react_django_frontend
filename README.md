@@ -1,5 +1,3 @@
-# https://ysfoz.github.io/react_django_frontend/.
-
 
 # Video
 
