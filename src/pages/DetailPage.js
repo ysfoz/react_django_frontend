@@ -7,6 +7,7 @@ import MenuComponent from "../components/MenuComponent";
 import { fetchDataDetail } from "../helper/FetchData";
 import axios from "axios";
 import { HomeButton} from '../components/HomeButton'
+import Container from "@material-ui/core/Container";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,17 +59,18 @@ const DetailPage = () => {
   }, []);
 
   return (
-    <div className={classes.root}>
+    <Container maxWidth="md" >
+      
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          {localStorage.getItem("currentUser") === postDetail?.author ? (
+        {localStorage.getItem("currentUser") === postDetail?.author ? (
             <MenuComponent slug={slug} />
           ) : null}
           <CardDetail post={postDetail} fetchData={fetchDataDetail} />
         </Grid>
       </Grid>
       <HomeButton/>
-    </div>
+    </Container>
   );
 };
 export default DetailPage;

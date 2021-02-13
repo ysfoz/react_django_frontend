@@ -13,6 +13,7 @@ import Modal from "@material-ui/core/Modal";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useHistory } from "react-router-dom";
 
+
 // STYLE
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -34,16 +35,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 8,
     textAlign: "center",
   },
-  container: {
-    position: "absolute",
-    top: 130,
-    right: 160,
-  },
-  container1: {
-    position: "absolute",
-    top: 130,
-    right: 20,
-  },
+
   menuText: {
     fontSize: 15,
   },
@@ -57,6 +49,9 @@ const useStyles = makeStyles((theme) => ({
   modalText1: {
     fontSize: 12,
     marginLeft: 10,
+  },
+  container: {
+    marginTop: theme.spacing(1),
   },
 }));
 
@@ -158,6 +153,7 @@ export default function MenuComponent({ slug }) {
       style={modalStyle}
       className={matches ? classes.paper : classes.paper1}
     >
+
       <h2 id="simple-modal-title">Text in a modal</h2>
       <p id="simple-modal-description">Are you sure to delete this post ?</p>
       <Button
@@ -177,10 +173,12 @@ export default function MenuComponent({ slug }) {
         Delete
       </Button>
     </div>
+ 
   );
 
   return (
-    <div className={matches ? classes.container : classes.container1}>
+   
+    <div className={classes.container}>
       <Button
         aria-controls="customized-menu"
         aria-haspopup="true"
@@ -224,6 +222,6 @@ export default function MenuComponent({ slug }) {
           {body}
         </Modal>
       </StyledMenu>
-    </div>
+    </div> 
   );
 }
