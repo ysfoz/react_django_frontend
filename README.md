@@ -1,3 +1,6 @@
+# https://ysfoz.github.io/react_django_frontend/.
+
+
 # Video
 
 <img src = "./blog.gif" width =800>
